@@ -1,6 +1,6 @@
 # Snake
 
-Classic snake game with a bit of twist.
+Classic snake game with a twist.
 
 ## What I Learned
   - Creating a game with pygame
