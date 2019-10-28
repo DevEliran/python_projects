@@ -8,7 +8,6 @@ import imghdr
 import cv2
 from pygame.mixer import Sound
 import datetime
-from dateutil.parser import parse
 
 
 class stats():
@@ -25,7 +24,8 @@ class cube(object):
         self.pos=start
         self.dirnx=1
         self.dirny=0
-        self.color=color
+        (a, b, c) = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        self.color=(a, b, c)
 
     def move(self,dirnx,dirny):
         self.dirnx=dirnx
@@ -267,4 +267,5 @@ def main():
         update_highscore()
 
 
-main()
+if __name__ == "__main__":
+    main()
