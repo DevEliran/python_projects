@@ -8,6 +8,7 @@ import imghdr
 import cv2
 from pygame.mixer import Sound
 import datetime
+import time
 
 
 class stats():
@@ -225,15 +226,20 @@ def main():
     snack=cube(randomSnack(rows,snake),color=(233,53,17))
     clock=pygame.time.Clock()
     start_stamp=datetime.datetime.now()
+    time_cube_appeared=time.time()
 
     while True:
         pygame.mouse.set_visible(False)
         clock.tick(20)
         snake.move()
         update_highscore()
+        if time.time() - time_cube_appeared > 2:
+            snack = cube(randomSnack(rows, snake), color=(233, 53, 17))
+            time_cube_appeared = time.time()
         if snake.body[0].pos==snack.pos:
             snake.addCube()
             snack=cube(randomSnack(rows,snake),color=(233,53,17))
+            time_cube_appeared = time.time()
 
         for x in range(len(snake.body)):
             if snake.body[x].pos in list(map(lambda z: z.pos,snake.body[x+1:])) :
