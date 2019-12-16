@@ -6,7 +6,7 @@ times=[]
 df=pandas.DataFrame(columns=["Start","End"])
 video=cv2.VideoCapture(0,cv2.CAP_DSHOW) #DirectShow (via videoInput)
 while True:
-    check , frame=video.read()#first frame RGB
+    check , frame=video.read()
     status=0
     #print(check)
     #print(frame)
@@ -17,7 +17,7 @@ while True:
         first_frame=gray#first frame is 'frame' on a gray scale
         continue
 
-    delta_frame=cv2.absdiff(first_frame,gray)
+    delta_frame=cv2.absdiff(first_frame,gray)#
     thresh_frame=cv2.threshold(delta_frame,30,255,cv2.THRESH_BINARY)[1]
     thresh_frame=cv2.dilate(thresh_frame,None,iterations=2)
 
@@ -38,8 +38,8 @@ while True:
         times.append(datetime.now())
 
 
-    #cv2.imshow("Threshold",thresh_frame)
-    #cv2.imshow("delta",delta_frame)
+    cv2.imshow("Threshold",thresh_frame)
+    cv2.imshow("delta",delta_frame)
     cv2.imshow("Capturing",frame)
 
     key=cv2.waitKey(1)
@@ -49,7 +49,7 @@ while True:
         break
 
 for i in range(0,len(times),2):
-    df=df.append({"Start":times[i] , "End":times[i+1]},ignore_index=True)#inserting data to the dataframe 
+    df=df.append({"Start":times[i] , "End":times[i+1]},ignore_index=True)#inserting data to the dataframe
 
 df.to_csv("Time log.csv")
 video.release()

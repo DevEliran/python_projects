@@ -42,7 +42,7 @@ def parse():
     args=parser.parse_args()
 
     command=args.execute
-
+    interval=args.interval
     if args.execute:
         get_urls=urls_db.view_urls()
         while True:
@@ -58,9 +58,11 @@ def parse():
                     urls_db.con.commit()
                     if urls_db.status_changed(get_urls[i][0]):
                         notify()
-                urls_db.update_status(get_urls[i][0])            
-            sleep(int(args.interval))
-
+                urls_db.update_status(get_urls[i][0])
+            if interval is not None:
+                sleep(int(interval))
+            else:
+                sleep(5)
     elif args.view_url:
         get_urls=urls_db.view_urls()
         #print(get_urls)
